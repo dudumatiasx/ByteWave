@@ -149,35 +149,35 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
 ### Endpoints
 
   **User Authentication**
-  [POST](/api/auth/register): Register a new user.
-  [POST](/api/auth/login): Authenticate a user and return a JWT token.
+  - [POST](/api/auth/register): Register a new user.
+  - [POST](/api/auth/login): Authenticate a user and return a JWT token.
 
   **Products**
-  [GET](/api/products): Get all products.
-  [POST](/api/products): Create a new product.
-  [PUT](/api/products/{id}): Update a product.
-  [DELETE](/api/products/{id}): Delete a product.
+  - [GET](/api/products): Get all products.
+  - [POST](/api/products): Create a new product.
+  - [PUT](/api/products/{id}): Update a product.
+  - [DELETE](/api/products/{id}): Delete a product.
 
   **Orders**
-  [GET](/api/orders): Get all orders or filtered orders based on role.
-  [POST](/api/orders): Create a new order.
-  [PUT](/api/orders/{id}): Update an order.
-  [DELETE](/api/orders/{id}): Delete an order.
+  - [GET](/api/orders): Get all orders or filtered orders based on role.
+  - [POST](/api/orders): Create a new order.
+  - [PUT](/api/orders/{id}): Update an order.
+  - [DELETE](/api/orders/{id}): Delete an order.
 
 ### Development
 
   **Auth Service**
-  Handles user authentication and token management.
+  - Handles user authentication and token management.
 
   **User Service**
-  Fetches user details from the API.
+  - Fetches user details from the API.
   
   **Order Service**
-  Manages order creation, updates, and retrieval from the API.
+  - Manages order creation, updates, and retrieval from the API.
   
   **Product Service**
-  Handles CRUD operations for products.
+  - Handles CRUD operations for products.
   
   **Customer Service**
-  Manages customer data 
+  - Manages customer data 
 
