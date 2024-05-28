@@ -14,7 +14,6 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
 - [Development](#development)
 - [License](#license)
 
-
 ## Features
 
 - **User Authentication**: Registration and login functionalities.
