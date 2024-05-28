@@ -64,7 +64,7 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
 
 1. Clone the repository:
 
-   `git clone` <https://github.com/dudumatiasx/ByteWave>
+   `git clone <https://github.com/dudumatiasx/ByteWave>`
 
 2. Navigate to the front-end directory:
 
@@ -93,22 +93,22 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
 
 ### Running the Application
   
-  - Open your browser and navigate to [front-end](http://localhost:4200).
-  - The API will be available at [back-end](https://localhost:5200/swagger/index.html).
+  - Open your browser and navigate to [front-end](http://localhost:4200) `http://localhost:4200`.
+  - The API will be available at [back-end](https://localhost:5200/swagger/index.html) `https://localhost:5200/swagger/index.html`.
 
 ### Precreated Users
 
   **Admin User**
-  User: admin
-  Password: Admin@123
+  - User: admin
+  - Password: Admin@123
 
   **Seller User**
-  User: seller
-  Password: Seller@123
+  - User: seller
+  - Password: Seller@123
 
   **Customer User**
-  User: bobjohnson
-  Password: Customer@123
+  - User: bobjohnson
+  - Password: Customer@123
 
 ### Usage
 
