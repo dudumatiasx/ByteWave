@@ -151,6 +151,7 @@ using (var scope = app.Services.CreateScope())
         }
     }
     
+    
     var customers = new List<Customer>
     {
         new Customer { Name = "John Doe", Email = "john@example.com", Phone = "123456789", City = "City A", Country = "Address 1", PostalCode = "93290", State = "State A", Street = "Address 1" },
