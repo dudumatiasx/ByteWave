@@ -19,9 +19,11 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
 
 - **User Authentication**: Registration and login functionalities.
 - **Role-Based Access Control**: Admins, Sellers, and Customers have different access levels.
-- **Product Management**: Admins can add, update, and delete products.
-- **Order Management**: Sellers can create orders, and customers can view their orders.
-- **Dashboard**: Overview of sales and orders with charts.
+- **Product Management**: Admins and Sellers can add, update, and delete products.
+- **Order Management**: Admins and Sellers can create, update, and delete orders, and customers can view their orders.
+- **Customer Management**: Admins and Sellers can add, update, and delete customers.
+- **User Management**: Admins can add, update, and delete users.
+- **Dashboard**: Overview of sales, customers, inventory and orders with charts.
 
 ## Technologies Used
 

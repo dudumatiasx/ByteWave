@@ -173,6 +173,48 @@ using (var scope = app.Services.CreateScope())
     context.Products.AddRange(products);
 
     context.SaveChanges();
+
+    var bobJohnson = context.Customers.First(c => c.Name == "Bob Johnson");
+    var otherCustomers = context.Customers.Where(c => c.Name != "Bob Johnson").ToList();
+
+    var orders = new List<Order>
+    {
+        new Order { CustomerId = bobJohnson.Id, SellerEmail = "seller@example.com", OrderDate = DateTime.Now.AddMonths(-1), Status = "SHIPPED", TotalAmount = 5000m, OrderProducts = new List<OrderProduct>
+            {
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "RTX 4090 Rog Strix").Id, Quantity = 1 },
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "Astro A10 Gaming Headset").Id, Quantity = 2 }
+            }
+        },
+        new Order { CustomerId = bobJohnson.Id, SellerEmail = "seller@example.com", OrderDate = DateTime.Now.AddMonths(-1), Status = "PENDING", TotalAmount = 3000m, OrderProducts = new List<OrderProduct>
+            {
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "Core i7-12700KF").Id, Quantity = 1 },
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "Logitech G305 LIGHTSPEED").Id, Quantity = 1 }
+            }
+        },
+        new Order { CustomerId = bobJohnson.Id, SellerEmail = "seller@example.com", OrderDate = DateTime.Now, Status = "DELIVERED", TotalAmount = 4000m, OrderProducts = new List<OrderProduct>
+            {
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "Acer KB272 EBI 27' IPS Full HD").Id, Quantity = 2 }
+            }
+        },
+        new Order { CustomerId = otherCustomers[0].Id, SellerEmail = "admin@example.com", OrderDate = DateTime.Now, Status = "SHIPPED", TotalAmount = 6000m, OrderProducts = new List<OrderProduct>
+            {
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "ASUS ROG Strix B550-A").Id, Quantity = 2 }
+            }
+        },
+        new Order { CustomerId = otherCustomers[1].Id, SellerEmail = "admin@example.com", OrderDate = DateTime.Now.AddMonths(-2), Status = "DELIVERED", TotalAmount = 2000m, OrderProducts = new List<OrderProduct>
+            {
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "Logitech G305 LIGHTSPEED").Id, Quantity = 3 }
+            }
+        },
+        new Order { CustomerId = otherCustomers[1].Id, SellerEmail = "admin@example.com", OrderDate = DateTime.Now, Status = "DELIVERED", TotalAmount = 2500m, OrderProducts = new List<OrderProduct>
+            {
+                new OrderProduct { ProductId = context.Products.First(p => p.Title == "Kingston Fury Beast 32GB").Id, Quantity = 5 }
+            }
+        }
+    };
+
+    context.Orders.AddRange(orders);
+    context.SaveChanges();
 }
 
 if (app.Environment.IsDevelopment())

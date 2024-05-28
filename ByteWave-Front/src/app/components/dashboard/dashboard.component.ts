@@ -259,10 +259,21 @@ export class DashboardComponent implements OnInit {
   }
 
   filterOrders(orders: any[]): any[] {
+    const currentMonth = new Date().getMonth();
+    const currentYear = new Date().getFullYear();
+
     if (this.userRole === 'Admin') {
-      return orders;
+      return orders.filter(order => {
+        const orderMonth = new Date(order.orderDate).getMonth();
+        const orderYear = new Date(order.orderDate).getFullYear();
+        return orderMonth === currentMonth && orderYear === currentYear;
+      });
     } else if (this.userRole === 'Seller') {
-      return orders.filter(order => order.sellerEmail === this.userEmail);
+      return orders.filter(order => {
+        const orderMonth = new Date(order.orderDate).getMonth();
+        const orderYear = new Date(order.orderDate).getFullYear();
+        return order.sellerEmail === this.userEmail && orderMonth === currentMonth && orderYear === currentYear;
+      });
     }
     return [];
   }

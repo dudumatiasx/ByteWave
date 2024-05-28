@@ -11,7 +11,7 @@ import { UserService } from 'src/services/user.service';
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.scss'],
-
+  providers: [MessageService, ConfirmationService],
 })
 export class OrderHistoryComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;

@@ -5,7 +5,7 @@ import { OrderService } from 'src/services/order.service';
 import { Router } from '@angular/router';
 import { Order } from 'src/models/order.model';
 import { AuthService } from 'src/services/auth.service';
-import { UserService } from 'src/services/user.service'; // Import the UserService
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-orders',
