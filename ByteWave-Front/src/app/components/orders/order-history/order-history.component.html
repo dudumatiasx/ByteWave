@@ -1,0 +1,81 @@
+<div class="layout-main-container flex">
+
+  <div class="flex justify-content-between px-1">
+    <div class="flex">
+      <app-titlebar [title]="'Order History'" [divider]="false" class="col-12"></app-titlebar>
+    </div>
+  </div>
+  <p-divider class="col-12 pt-0"></p-divider>
+
+  <p-table
+    #dt [value]="filteredOrders"
+    [rows]="25"
+    [paginator]="true"
+    [globalFilterFields]="['customer.name', 'status', 'totalAmount']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedOrders"
+    [rowHover]="true"
+    dataKey="id"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5, 10, 25, 50, 100]"
+    class="fadein animation-duration-500">
+
+    <ng-template pTemplate="caption">
+
+      <div class="flex flex-wrap justify-content-between align-items-center">
+
+        <div class="flex flex-wrap">
+          <div class="card p-2 px-3 m-1 border-none surface-100 hover:surface-300 cursor-pointer"
+            [ngClass]="{'surface-300': activeFilter === 'all'}" (click)="filterAll()">
+            <div class="flex">
+              <span class="text-bluegray-900 font-bold">All</span>
+            </div>
+          </div>
+
+          <div class="card p-2 px-3 m-1 border-none surface-100 hover:surface-300 cursor-pointer"
+            [ngClass]="{'surface-300': activeFilter === 'PENDING'}" (click)="applyFilterStatus('PENDING')">
+            <div class="flex">
+              <span class="text-bluegray-900 font-bold">Pending</span>
+            </div>
+          </div>
+
+          <div class="card p-2 px-3 m-1 border-none surface-100 hover:surface-300 cursor-pointer"
+            [ngClass]="{'surface-300': activeFilter === 'SHIPPED'}" (click)="applyFilterStatus('SHIPPED')">
+            <div class="flex">
+              <span class="text-bluegray-900 font-bold">Shipped</span>
+            </div>
+          </div>
+
+          <div class="card p-2 px-3 m-1 border-none surface-100 hover:surface-300 cursor-pointer"
+            [ngClass]="{'surface-300': activeFilter === 'DELIVERED'}" (click)="applyFilterStatus('DELIVERED')">
+            <div class="flex">
+              <span class="text-bluegray-900 font-bold">Delivered</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="p-input-icon-left md:mt-0 mt-4">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search" />
+        </span>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="orderDate" style="min-width:15rem">Order Date<p-sortIcon field="orderDate"></p-sortIcon></th>
+        <th pSortableColumn="status" style="min-width:10rem">Status<p-sortIcon field="status"></p-sortIcon></th>
+        <th pSortableColumn="totalAmount">Total Amount<p-sortIcon field="totalAmount"></p-sortIcon></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-order>
+      <tr (click)="editOrder(order)">
+        <td>{{ order.orderDate | date:'short' }}</td>
+        <td><p-tag [value]="order.status" [severity]="getSeverity(order.status)"></p-tag></td>
+        <td>{{ order.totalAmount | currency: 'USD' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,99 @@
+<div class="layout-main-container align-items-center">
+  <div class="card pt-4 col-12 xl:col-10">
+    <div class="flex align-items-center pb-4">
+      <p-button icon="pi pi-arrow-left" (click)="backClicked()" [text]="true" severity="secondary" styleClass="p-2"
+        size="small" pTooltip="Return" tooltipPosition="left" [showDelay]="1000" tooltipStyleClass="text-sm"></p-button>
+      <span class="text-900 font-bold text-xl ml-2">{{ title }}</span>
+    </div>
+
+    <div class="grid flex-wrap gap-3 p-fluid">
+      <div class="col-12">
+        <div class="grid formgrid">
+
+          <div class="col-12 md:col-3 field">
+            <label for="customer" class="font-medium">Customer</label>
+            <p-dropdown [options]="customers" [(ngModel)]="selectedCustomer" optionLabel="name"
+              placeholder="Select a customer"></p-dropdown>
+          </div>
+
+          <div class="col-12 md:col-3 field">
+            <label for="status" class="font-medium">Status</label>
+            <p-dropdown [options]="statuses" optionLabel="label" [(ngModel)]="selectedStatus"
+              placeholder="Select a Status">
+            </p-dropdown>
+          </div>
+
+          <p-divider class="col-12"></p-divider>
+
+          <div class="col-12 field">
+            <p-pickList
+              [source]="sourceProducts"
+              [target]="targetProducts"
+              sourceHeader="Products List"
+              targetHeader="Selected into Order"
+              [dragdrop]="true"
+              [responsive]="true"
+              [sourceStyle]="{ height: '36rem'}"
+              [targetStyle]="{ height: '40rem'}"
+              filterBy="title"
+              sourceFilterPlaceholder="Search by title"
+              [showTargetFilter]="false"
+              breakpoint="1400px"
+              (onMoveToTarget)="onProductMoveToTarget($event)"
+              (onMoveToSource)="onProductMoveToSource($event)">
+              <ng-template let-product pTemplate="item">
+                <div class="flex flex-wrap p-2 align-items-center gap-3 z-1">
+                  <img
+                    class="w-4rem shadow-2 flex-shrink-0 border-round"
+                    [src]="getImageUrl(product.imageUrl)"
+                    alt="{{product.title}}" />
+                  <div class="flex-1 flex flex-column gap-2">
+                    <span class="font-bold">
+                      {{ product.title }}
+                    </span>
+                    <div class="flex align-products-center gap-2">
+                      <i class="pi pi-tag text-sm"></i>
+                      <span>{{ product.category }}</span>
+                    </div>
+                  </div>
+                  <span class="font-bold text-900">{{ product.price | currency: 'USD' }}</span>
+                </div>
+                <div *ngIf="targetProducts.includes(product)" class="flex justify-content-end">
+                  <p-inputNumber id="quantity" [(ngModel)]="product.quantity" [min]="1" [useGrouping]="false"
+                    [showButtons]="true"
+                    buttonLayout="horizontal"
+                    spinnerMode="horizontal"
+                    inputId="horizontal"
+                    label="Quantity"
+                    decrementButtonIcon="pi pi-minus"
+                    decrementButtonClass="p-button-outlined p-button-secondary"
+                    incrementButtonIcon="pi pi-plus"
+                    incrementButtonClass="p-button-outlined p-button-secondary"
+                    (ngModelChange)="onProductQuantityChange()"
+                    class="col-12 md:col-3">
+                  </p-inputNumber>
+                </div>
+              </ng-template>
+            </p-pickList>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-content-end pb-6 pr-4">
+      <span for="total" class="text-xl font-medium">Total Amount:</span>&nbsp;<span for="total" class="text-xl text-green-600 font-bold">{{ totalAmount | currency: 'USD'}}</span>
+    </div>
+    <div class="grid flex-wrap lg:justify-content-end pr-4">
+      <div class="col-6 lg:col-2 px-1 p-0">
+        <p-toast></p-toast>
+        <p-confirmDialog></p-confirmDialog>
+        <p-button *ngIf="isEditMode" (click)="discard($event)" class="p-fluid" label="Delete" icon="pi pi-trash" [outlined]="true"
+          severity="danger" size="small"></p-button>
+      </div>
+      <div class="col-6 lg:col-2 p-0">
+        <p-button (click)="saveOrder()" class="p-fluid" label="Save" icon="pi pi-check" size="small"></p-button>
+      </div>
+    </div>
+
+  </div>
+</div>

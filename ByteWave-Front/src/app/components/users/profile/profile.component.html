@@ -1,0 +1,60 @@
+<div class="layout-main-container align-items-center">
+  <div class="card pt-4 col-12 md:col-6 xl:col-4">
+    <div class="flex pb-4">
+      <p-button icon="pi pi-arrow-left" (click)="backClicked()" [text]="true" severity="secondary" size="small"
+        pTooltip="Return" tooltipPosition="left" [showDelay]="1000" tooltipStyleClass="text-sm"></p-button>
+      <span class="text-900 font-bold text-xl ml-2 mt-2">Profile</span>
+    </div>
+
+    <div class="grid flex-wrap gap-3 p-fluid">
+      <div class="col-12">
+        <div class="grid formgrid">
+          <div class="col-12 field">
+            <label for="username" class="font-medium text-900">Username</label>
+            <input id="username" pInputText type="text" [(ngModel)]="user.userName" required
+              [ngClass]="{'ng-invalid': existingUserError, 'ng-dirty': existingUserError}"/>
+            <div *ngIf="existingUserError" class="text-red-600">Username already exists</div>
+          </div>
+          <div class="col-12 field">
+            <label for="email" class="font-medium text-900">Email</label>
+            <input id="email" pInputText type="email" [(ngModel)]="user.email" required
+              [ngClass]="{'ng-invalid': emailInvalid, 'ng-dirty': emailInvalid}" (blur)="validateEmail()" />
+            <div *ngIf="emailInvalid" class="text-red-600">Invalid email format</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid flex-wrap pt-3 xl:justify-content-end">
+      <div class="col-6 xl:col-4">
+        <p-toast></p-toast>
+        <p-confirmDialog></p-confirmDialog>
+        <p-button (click)="openChangePasswordDialog()" class="p-fluid" label="Change Password" icon="pi pi-key" size="small" [outlined]="true"></p-button>
+      </div>
+      <div class="col-6 xl:col-4">
+        <p-button (click)="saveUser()" class="p-fluid" label="Save" icon="pi pi-check" size="small"></p-button>
+      </div>
+    </div>
+
+    <p-dialog header="Change Password" [(visible)]="displayChangePasswordDialog" [closable]="false" [dismissableMask]="true">
+      <div class="p-fluid">
+        <div class="field">
+          <label for="currentPassword">Current Password</label>
+          <input id="currentPassword" type="password" pInputText [(ngModel)]="changePasswordData.currentPassword"/>
+        </div>
+        <div class="field">
+          <label for="newPassword">New Password</label>
+          <input id="newPassword" type="password" pInputText [(ngModel)]="changePasswordData.newPassword"/>
+        </div>
+        <div class="field">
+          <label for="confirmNewPassword">Confirm New Password</label>
+          <input id="confirmNewPassword" type="password" pInputText [(ngModel)]="changePasswordData.confirmNewPassword"/>
+        </div>
+      </div>
+      <p-footer>
+        <p-button label="Cancel" icon="pi pi-times" [outlined]="true" (click)="closeChangePasswordDialog()"></p-button>
+        <p-button label="Change Password" icon="pi pi-check" (click)="changePassword()"></p-button>
+      </p-footer>
+    </p-dialog>
+  </div>
+</div>

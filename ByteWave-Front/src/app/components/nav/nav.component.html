@@ -1,0 +1,19 @@
+<p-menubar [model]="items" *ngIf="showThis()">
+  <ng-template pTemplate="start">
+    <img src="/assets/bytewave.png" height="26"
+      class="sm:px-6 pr-4 select-none" />
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <p-menu #menu [model]="userItems" [popup]="true"></p-menu>
+    <p-button
+      icon="pi pi-chevron-down"
+      label="{{ username }}"
+      size="small"
+      [text]="true"
+      severity="secondary"
+      (click)="menu.toggle($event)">
+    </p-button>
+  </ng-template>
+</p-menubar>
+

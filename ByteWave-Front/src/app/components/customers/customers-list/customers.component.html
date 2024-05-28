@@ -1,0 +1,66 @@
+<div class="layout-main-container flex">
+  <div class="flex justify-content-between px-1">
+    <div class="flex">
+      <app-titlebar [title]="'Customers'" [divider]="false" class="col-6"></app-titlebar>
+    </div>
+    <div class="flex sm:gap-2">
+      <p-button label="Add customer" icon="pi pi-plus" iconPos="right" [raised]="true" size="small" routerLink="new"></p-button>
+    </div>
+  </div>
+  <p-divider class="col-12 pt-0"></p-divider>
+
+    <p-table
+      #dt
+      [value]="customers"
+      [rows]="25"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'email', 'phone', 'city', 'country']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [(selection)]="selectedCustomers"
+      [rowHover]="true"
+      dataKey="id"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[5, 10, 25, 50, 100]"
+      class="fadein animation-duration-500"
+    >
+    <ng-template pTemplate="caption">
+      <div class="flex-column justify-content-between align-items-center">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search" />
+        </span>
+        <div class="mt-3">
+          <span class="text-md">{{ customers.length }}</span>&nbsp;
+          <span class="font-normal">Total customers</span>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" style="min-width:15rem">Name<p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="email" style="min-width:15rem">Email<p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="phone" style="min-width:10rem">Phone<p-sortIcon field="phone"></p-sortIcon></th>
+        <th pSortableColumn="city" style="min-width:10rem">City<p-sortIcon field="city"></p-sortIcon></th>
+        <th pSortableColumn="country" style="min-width:10rem">Country<p-sortIcon field="country"></p-sortIcon></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-customer>
+      <tr (click)="editCustomer(customer)" class="cursor-pointer">
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{{ customer.city }}</td>
+        <td>{{ customer.country }}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

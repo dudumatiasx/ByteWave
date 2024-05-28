@@ -1,0 +1,84 @@
+<div class="layout-main-container flex align-items-center">
+  <div class="col-12">
+    <app-titlebar [title]="'Product Catalog'" [return]="false"></app-titlebar>
+  </div>
+
+  <div class="card flex col-11 pt-3 p-0">
+    <p-dataView #dv [value]="products" [paginator]="true" [rows]="12" filterBy="title, price" [sortField]="sortField"
+      [sortOrder]="sortOrder" layout="grid" class="w-full">
+
+      <ng-template pTemplate="header">
+        <div class="flex flex-wrap gap-2">
+
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input class="w-19rem" type="search" pInputText placeholder="Search by name" (input)="onFilter(dv, $event)">
+          </span>
+
+          <div class="flex gap-2 flex-wrap mr-auto">
+            <p-multiSelect [options]="categoryOptions" [(ngModel)]="selectedCategories" placeholder="Filter by category"
+              label="Select Categories" panelStyleClass="w-20rem" styleClass="w-19rem"
+              (onChange)="onCategoryChange($event)">
+            </p-multiSelect>
+            <p-dropdown [options]="sortOptions" placeholder="Sort By" (onChange)="onSortChange($event)">
+            </p-dropdown>
+          </div>
+          <div class="flex gap-2 flex-wrap justify-content-end">
+            <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+          </div>
+        </div>
+      </ng-template>
+
+
+      <ng-template let-product pTemplate="listItem">
+        <div class="col-12">
+          <div class="flex flex-column md:flex-row align-items-center p-3 w-full">
+            <img [src]="getImageUrl(product.imageUrl)" [alt]="product.title"
+              class="my-4 md:my-0 w-9 md:w-10rem shadow-2 mr-5" style="position: relative;" />
+            <div class="flex-1 flex flex-column align-items-start text-center md:text-left">
+              <div class="flex align-items-center">
+                <div class="font-bold text-2xl mr-3">{{product.title}}</div>
+                <p-tag *ngIf="product.quantity <= 10" [value]="getInventoryStatus(product)"
+                  [severity]="getSeverity(getInventoryStatus(product))"></p-tag>
+              </div>
+              <div class="flex align-items-center mt-2">
+                <i class="pi pi-tag mr-2"></i>
+                <span class="font-semibold">{{product.category}}</span>
+              </div>
+            </div>
+            <div class="flex align-items-center gap-3">
+              <span class="text-xl font-semibold mb-2">{{product.price | currency: 'USD' }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+
+
+      <ng-template let-product pTemplate="gridItem">
+        <div class="grid grid-nogutter align-items-top">
+          <div class="card m-3 w-18rem h-28rem pt-4">
+            <div class="flex absolute w-15rem justify-content-end">
+              <p-tag *ngIf="product.quantity <= 10" [value]="getInventoryStatus(product)"
+                [severity]="getSeverity(getInventoryStatus(product))" styleClass="shadow-3"></p-tag>
+            </div>
+            <div class="flex flex-wrap align-items-top justify-content-center text-center pt-2">
+              <img [src]="getImageUrl(product.imageUrl)" [alt]="product.title" class="shadow-2 mb-3 mx-0"
+                style="max-width: 200px; max-height: 200px;" />
+              <div class="text-2xl font-normal mt-2 mb-5 h-4rem">{{product.title}}</div>
+            </div>
+
+            <div class="flex flex-wrap align-content-center justify-content-between">
+              <span class="text-xl font-bold underline align-self-start">{{product.price | currency: 'USD' }}</span>
+              <div class="flex align-items-center justify-content-center">
+                <i class="pi pi-tag mr-1 text-gray-500"></i>
+                <span class="font-normal text-gray-500">{{product.category}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+    </p-dataView>
+  </div>
+</div>

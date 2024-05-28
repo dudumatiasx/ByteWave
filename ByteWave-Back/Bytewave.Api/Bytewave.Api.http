@@ -1,0 +1,6 @@
+@Bytewave.Api_HostAddress = http://localhost:5200
+
+GET {{Bytewave.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

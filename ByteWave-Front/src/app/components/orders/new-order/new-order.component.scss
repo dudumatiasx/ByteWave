@@ -1,0 +1,10 @@
+::ng-deep .p-picklist-buttons,
+.p-picklist-target-controls,
+.p-picklist-source-controls {
+  display: none;
+}
+
+::ng-deep .p-picklist-list-wrapper {
+  margin-right: 1rem;
+  margin-top: 1rem;
+}

@@ -1,0 +1,77 @@
+<div class="layout-main-container align-items-center">
+
+  <div class="card pt-4 col-12 md:col-8 xl:col-6">
+
+    <div class="flex pb-4">
+      <p-button icon="pi pi-arrow-left" (click)="backClicked()" [text]="true" severity="secondary" size="small"
+        pTooltip="Return" tooltipPosition="left" [showDelay]="1000" tooltipStyleClass="text-sm"></p-button>
+      <span class="text-900 font-bold text-xl ml-2 mt-2">{{ title }}</span>
+    </div>
+
+    <div class="grid flex-wrap gap-3 p-fluid">
+      <div class="col-12">
+
+        <div class="grid formgrid">
+          <div class="col-12 field">
+            <label for="fullname" class="font-medium text-900">Name</label>
+            <input id="fullname" pInputText type="text" [(ngModel)]="customer.name" />
+          </div>
+
+          <div class="col-12 field">
+            <label for="email" class="font-medium text-900">Email</label>
+            <input id="email" pInputText type="text" [(ngModel)]="customer.email" />
+          </div>
+
+          <div class="col-12 field">
+            <label for="phone" class="font-medium text-900">Phone number</label>
+            <input id="tel-area-code" pInputText type="text" [(ngModel)]="customer.phone" />
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <div class="grid formgrid pt-4">
+          <div class="col-12 xl:col-6 field">
+            <label for="country" class="font-medium text-900">Country/Region</label>
+            <input id="country" pInputText type="text" [(ngModel)]="customer.country" />
+          </div>
+
+          <div class="col-12 xl:col-6 field">
+            <label for="postalCode" class="font-medium text-900">Postal code</label>
+            <input id="postal-code" pInputText type="text" [(ngModel)]="customer.postalCode" />
+          </div>
+
+          <div class="col-12 xl:col-6 field">
+            <label for="city" class="font-medium text-900">City</label>
+            <input id="city" pInputText type="text" [(ngModel)]="customer.city" />
+          </div>
+
+          <div class="col-12 xl:col-6 field">
+            <label for="state" class="font-medium text-900">State</label>
+            <input id="state" pInputText type="text" [(ngModel)]="customer.state" />
+          </div>
+
+          <div class="col-12 field">
+            <label for="adress" class="font-medium text-900">Street, number, etc.</label>
+            <input id="adress" pInputText type="text" [(ngModel)]="customer.street" />
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="grid flex-wrap pt-6 xl:justify-content-end xl:pl-6">
+      <div class="col-6 xl:col-3 px-1 p-0">
+        <p-toast></p-toast>
+        <p-confirmDialog></p-confirmDialog>
+        <p-button *ngIf="isEditMode" (click)="discard($event)" class="p-fluid" label="Delete" icon="pi pi-trash" [outlined]="true"
+          severity="danger" size="small"></p-button>
+      </div>
+      <div class="col-6 xl:col-3 p-0">
+        <p-button class="p-fluid" label="Save" icon="pi pi-check" (click)="saveCustomer()" size="small"></p-button>
+      </div>
+    </div>
+
+  </div>
+
+</div>

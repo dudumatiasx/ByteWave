@@ -1,0 +1,55 @@
+<p-toast></p-toast>
+<div class="bg-cover h-screen flex justify-content-center align-items-center"
+  style="background-image: url('assets/images/bg-login.svg');">
+  <div class="card p-6 col-11 sm:col-8 md:col-6 lg:col-5 xl:col-3">
+    <div class="grid p-fluid flex">
+      <div class="flex align-items-center px-0 mt-2">
+        <p-button icon="pi pi-arrow-left" routerLink="/login" [text]="true" severity="secondary" size="small"
+          styleClass="p-2" pTooltip="Cancel" tooltipPosition="left" [showDelay]="1000"
+          tooltipStyleClass="text-sm"></p-button>
+        <div class="text-900 text-2xl font-large font-bold my-2">Register</div>
+      </div>
+      <div class="px-2 mt-1 w-full">
+        <span class="text-600 font-medium">Please fill in the details</span>
+      </div>
+      <div class="col-12 mt-5">
+        <input id="username" type="text" placeholder="Username" [(ngModel)]="username" pInputText class="w-full"
+          [ngClass]="{'ng-invalid': !isUsernameValid() && username.length > 0, 'ng-dirty': username.length > 0}">
+      </div>
+      <div class="col-12">
+        <input id="email" type="text" placeholder="Email" [(ngModel)]="email" pInputText class="w-full"
+          [ngClass]="{'ng-invalid': !isEmailValid() && email.length > 0, 'ng-dirty': email.length > 0}">
+      </div>
+      <div class="col-12">
+        <p-password id="password" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" class="w-full"
+          (ngModelChange)="validatePassword()"
+          [ngClass]="{'ng-invalid': showPasswordRequirements && (!passwordRequirements.length || !passwordRequirements.uppercase || !passwordRequirements.special || !passwordRequirements.number), 'ng-dirty': password.length > 0}"></p-password>
+      </div>
+      <div class="col-12">
+        <p-password id="confirmPassword" [(ngModel)]="confirmPassword" (ngModelChange)="checkPasswords()"
+          placeholder="Confirm Password" [feedback]="false" [toggleMask]="true" class="w-full"
+          [ngClass]="{'ng-invalid': !passwordsMatch && confirmPassword.length > 0, 'ng-dirty': confirmPassword.length > 0}"></p-password>
+        <div *ngIf="!passwordsMatch && confirmPassword.length > 0" class="text-red-600 mt-1">Passwords do not match
+        </div>
+      </div>
+      <div *ngIf="showPasswordRequirements" class="col-12 mb-1 mt-1">
+        <span>Password must contain:</span>
+        <ul>
+          <li [ngClass]="{'text-red-600': !passwordRequirements.length}">At least 6 characters</li>
+          <li [ngClass]="{'text-red-600': !passwordRequirements.uppercase}">One uppercase letter</li>
+          <li [ngClass]="{'text-red-600': !passwordRequirements.special}">One special character</li>
+          <li [ngClass]="{'text-red-600': !passwordRequirements.number}">One number</li>
+        </ul>
+      </div>
+      <div class="flex col-12 justify-content-between mb-4">
+        <div class="flex align-items-center">
+          <p-checkbox id="acceptTerms" [(ngModel)]="acceptTerms" [binary]="true" styleClass="mr-2"></p-checkbox>
+          <label for="acceptTerms">I accept the terms and conditions</label>
+        </div>
+      </div>
+      <div class="col-12">
+        <button pButton class="font-medium justify-content-center w-full" (click)="register()">Register</button>
+      </div>
+    </div>
+  </div>
+</div>

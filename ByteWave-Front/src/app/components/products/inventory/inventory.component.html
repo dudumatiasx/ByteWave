@@ -1,0 +1,137 @@
+<div class="layout-main-container flex">
+
+  <div class="flex justify-content-between px-1">
+    <div class="flex">
+      <app-titlebar [title]="'Inventory'" [divider]="false" class="col-6"></app-titlebar>
+    </div>
+    <div class="flex sm:gap-2">
+      <p-menu #menu [model]="moreActions" [popup]="true" styleClass="w-14rem"></p-menu>
+      <p-button label="Add product" icon="pi pi-plus" iconPos="right" [raised]="true" size="small" routerLink="/products/new">
+      </p-button>
+    </div>
+  </div>
+  <p-divider class="col-12 pt-0"></p-divider>
+
+  <div class="card flex flex-wrap p-1 mb-3">
+
+    <div class="card sm:h-5rem h-3rem p-3 m-2 border-none hover:surface-200 cursor-pointer"
+      [ngClass]="{'surface-200': activeFilter === 'all'}" (click)="filterAll()">
+      <div class="flex align-items-center">
+        <span class="text-bluegray-900 font-bold text-xl">{{totalProducts}}</span>
+      </div>
+      <div class="flex">
+        <span class="text-bluegray-900 hidden sm:block">Total Products</span>&nbsp;
+      </div>
+    </div>
+
+    <p-divider layout="vertical" class="hidden md:block"></p-divider>
+    <div class="card sm:h-5rem h-3rem p-3 m-2 border-none hover:surface-200 cursor-pointer"
+      [ngClass]="{'surface-300': activeFilter === 'quantityHigh'}" (click)="applyFilterQuantityHigh()">
+      <div class="flex align-items-center">
+        <span class="text-bluegray-900 font-bold text-xl">{{inStockCount}}</span>
+        <i class="pi pi-check-circle text-green-500 ml-2"></i>
+      </div>
+      <div class="flex">
+        <span class="text-bluegray-900 hidden sm:block">Products</span>&nbsp;
+        <span class="text-green-500 font-bold hidden sm:block">in stock</span>
+      </div>
+    </div>
+
+    <p-divider layout="vertical" class="hidden md:block"></p-divider>
+    <div class="card sm:h-5rem h-3rem p-3 m-2 border-none hover:surface-200 cursor-pointer"
+      [ngClass]="{'surface-300': activeFilter === 'quantityLow'}" (click)="applyFilterQuantityLow()">
+      <div class="flex align-items-center">
+        <span class="text-bluegray-900 font-bold text-xl">{{lowStockCount}}</span>
+        <i class="pi pi-exclamation-circle text-yellow-500 ml-2"></i>
+      </div>
+      <div class="flex">
+        <span class="text-bluegray-900 hidden sm:block">Products</span>&nbsp;
+        <span class="text-yellow-500 font-bold hidden sm:block">low stock</span>
+      </div>
+    </div>
+
+    <p-divider layout="vertical" class="hidden md:block"></p-divider>
+    <div class="card sm:h-5rem h-3rem p-3 m-2 border-none hover:surface-200 cursor-pointer"
+      [ngClass]="{'surface-300': activeFilter === 'quantityZero'}" (click)="applyFilterQuantityZero()">
+      <div class="flex align-items-center">
+        <span class="text-bluegray-900 font-bold text-xl">{{outOfStockCount}}</span>
+        <i class="pi pi-exclamation-triangle text-red-500 ml-2"></i>
+      </div>
+      <div class="flex">
+        <span class="text-bluegray-900 hidden sm:block">Products </span>&nbsp;
+        <span class="text-red-500 font-bold hidden sm:block">out of stock</span>
+      </div>
+    </div>
+  </div>
+
+  <p-table
+    #dt [value]="products"
+    [rows]="25"
+    [paginator]="true"
+    [globalFilterFields]="['title', 'code', 'description', 'price', 'quantity', 'status',  'category']"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    [(selection)]="selectedProducts"
+    [rowHover]="true"
+    dataKey="id"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[5, 10, 25, 50, 100]"
+    class="fadein animation-duration-500"
+    editMode="row">
+    <ng-template pTemplate="caption">
+
+      <div class="flex align-items-center">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search" />
+        </span>
+      </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 5%;"></th>
+        <th style="width: 19%;" pSortableColumn="title">Product<p-sortIcon field="title"></p-sortIcon></th>
+        <th style="width: 19%;" pSortableColumn="code">Code<p-sortIcon field="code"></p-sortIcon></th>
+        <th style="width: 19%;" pSortableColumn="quantity">Status<p-sortIcon field="quantity"></p-sortIcon></th>
+        <th style="width: 19%;" pSortableColumn="quantity">Quantity in Stock<p-sortIcon field="quantity"></p-sortIcon></th>
+        <th style="width: 19%; text-align: center;">Change quantity</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+      <tr class="cursor-pointer" [pEditableRow]="product">
+        <td (click)="editProduct(product)" style="text-align: center;"><img [src]="getImageUrl(product.imageUrl)" [alt]="product.title" width="50" class="shadow-4 border-round" /></td>
+        <td (click)="editProduct(product)">{{ product.title }}</td>
+        <td (click)="editProduct(product)">{{ product.code }}</td>
+        <td (click)="editProduct(product)">
+          <p-tag [value]="getInventoryStatus(product)" [severity]="getSeverity(getInventoryStatus(product))"
+            styleClass="p-tag-rounded"></p-tag>
+        </td>
+        <td pInitEditableRow (click)="onRowEditInit(product)">
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="number" [(ngModel)]="product.quantity" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{product.quantity}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <div class="flex align-items-center justify-content-center gap-2">
+            <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+              (click)="onRowEditInit(product)" class="p-button p-button-text">
+            </button>
+            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+              (click)="onRowEditSave(product)" class="p-button p-button-text p-button-success mr-2">
+            </button>
+            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+              (click)="onRowEditCancel(product, ri)" class="p-button p-button-text p-button-danger">
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

@@ -1,0 +1,151 @@
+<div class="layout-main-container flex">
+  <div class="col-12">
+    <app-titlebar [title]="'Dashboard'" [return]="false"></app-titlebar>
+  </div>
+
+  <div class="grid">
+    <div class="col-12 md:col-6 xl:col-3">
+      <div pRipple
+        class="card fadein animation-duration-500 h-full ripple-green hover:shadow-6 transition-duration-1000"
+        routerLink="/orders" style="cursor: pointer;" pTooltip="Go to Orders" tooltipPosition="top" [showDelay]="500">
+        <div class="flex justify-content-between align-items-center">
+          <div class="w-10">
+            <div class="text-md">
+              <span class="font-semibold">Sales</span>
+            </div>
+            <span class="text-4xl font-bold text-900">{{ monthSales | currency: 'USD' }}</span>
+            <div class="flex">
+              <div class="text-gray-500">
+                <span class="font-normal">Total in sales this month</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-2">
+            <i class="icon-dollar-sign text-green-500 text-7xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 xl:col-3">
+      <div pRipple
+        class="card fadein animation-duration-500 h-full ripple-orange hover:shadow-6 transition-duration-1000"
+        routerLink="/orders" style="cursor: pointer;" pTooltip="Go to Orders" tooltipPosition="top" [showDelay]="500">
+        <div class="flex justify-content-between align-items-center">
+          <div class="w-10">
+            <div class="text-md">
+              <span class="font-semibold">Orders</span>
+            </div>
+            <span class="text-4xl font-bold text-900">{{ monthOrders }}</span>
+            <div class="flex">
+              <div class="text-gray-500">
+                <span class="font-normal">Total orders this month</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-2">
+            <i class="icon-inbox text-orange-500 text-7xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 xl:col-3">
+      <div pRipple
+        class="card fadein animation-duration-500 h-full ripple-indigo hover:shadow-6 transition-duration-1000"
+        routerLink="/customers" style="cursor: pointer;" pTooltip="Go to Customers" tooltipPosition="top"
+        [showDelay]="500">
+        <div class="flex justify-content-between align-items-center">
+          <div class="w-10">
+            <div class="text-md">
+              <span class="font-semibold">Customers</span>
+            </div>
+            <span class="text-4xl font-bold text-900">{{ totalCustomers }}</span>
+            <div class="flex">
+              <div class="text-gray-500">
+                <span class="font-normal">Total customers</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-2">
+            <i class="icon-users text-indigo-500 text-7xl"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 md:col-6 xl:col-3">
+      <div pRipple
+        class="card fadein animation-duration-500 h-full ripple-red hover:shadow-6 transition-duration-1000"
+        routerLink="/inventory" style="cursor: pointer;" pTooltip="Go to Inventory" tooltipPosition="top"
+        [showDelay]="500">
+        <div class="flex justify-content-between align-items-center">
+          <div class="w-10">
+            <div class="text-md">
+              <span class="font-semibold">Inventory</span>
+            </div>
+            <span class="text-4xl font-bold text-900">{{ outOfStockProducts }}</span>
+            <div class="flex">
+              <div class="text-red-200">
+                <i class="pi pi-exclamation-triangle text-sm mr-1"></i>
+              </div>
+              <div class="text-gray-500">
+                <span class="font-normal mr-2">Products out of stock</span>
+              </div>
+            </div>
+          </div>
+          <div class="w-2">
+            <div class="icon-archive-x text-red-500 text-7xl"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-content-between px-1 mt-4">
+    <div class="flex">
+      <app-titlebar [title]="'Analytics'" [divider]="false" [return]="false" class="col-6"></app-titlebar>
+    </div>
+    <div class="flex">
+      <p-button
+        [icon]="showCharts ? 'pi pi-eye-slash' : 'pi pi-eye'"
+        (click)="toggleChartsVisibility()"
+        label="{{ showCharts ? 'Hide Charts' : 'Show Charts' }}"
+        [outlined]="true"
+        class="p-button-text"
+        size="small"
+        severity="secondary"
+      >
+      </p-button>
+    </div>
+  </div>
+
+  <p-divider class="col-12 pt-0"></p-divider>
+
+  <div class="grid" *ngIf="showCharts">
+    <div class="col-12 xl:col-6">
+      <div class="card fadein animation-duration-500 h-full">
+        <div class="flex align-items-start justify-content-between mb-5">
+          <span class="text-900 text-xl font-semibold">Sales</span>
+
+          <p-button label="{{ displayMonthsSales === 6 ? 'Last 3 Months' : 'Last 6 Months' }}"
+            [outlined]="true" size="small" severity="secondary" icon="icon-calendar" pTooltip="Change to"
+            [showDelay]="1000" tooltipPosition="top" (click)="toggleMonthsSales()"></p-button>
+        </div>
+        <p-chart #lineChart type="line" height="300px" [data]="lineData" [options]="lineOptions"></p-chart>
+      </div>
+    </div>
+
+    <div class="col-12 xl:col-6">
+      <div class="card fadein animation-duration-500 h-full">
+        <div class="flex align-items-start justify-content-between mb-5">
+          <span class="text-900 text-xl font-semibold">Orders by Month </span>
+          <p-button label="{{ displayMonthsOrders === 6 ? 'Last 3 Months' : 'Last 6 Months' }}"
+            [outlined]="true" size="small" severity="secondary" icon="icon-calendar" pTooltip="Change to"
+            [showDelay]="1000" tooltipPosition="top" (click)="toggleMonthsOrders()"></p-button>
+        </div>
+        <p-chart type="bar" height="300px" [data]="barData" [options]="barOptions"></p-chart>
+      </div>
+    </div>
+  </div>
+</div>

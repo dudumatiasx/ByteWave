@@ -1,0 +1,22 @@
+<div class="grid flex justify-content-between">
+
+  <div class="flex sm:pl-2 align-items-center">
+    <p-button
+      icon="pi pi-arrow-left"
+      (click)="backClicked()"
+      [text]="true"
+      severity="secondary"
+      size="small"
+      pTooltip="Return"
+      tooltipPosition="left"
+      [showDelay]="1000"
+      tooltipStyleClass="text-sm"
+      class="mr-1"
+      styleClass="p-2"
+      *ngIf="return"></p-button>
+    <span class="text-900 text-bluegray-900 font-bold text-3xl">{{title}}</span>
+  </div>
+
+</div>
+
+<p-divider *ngIf="divider"></p-divider>

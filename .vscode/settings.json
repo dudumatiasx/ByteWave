@@ -1,0 +1,23 @@
+{
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "style": "scss",
+      "externalTemplate": true,
+      "shadowDom": false,
+      "stylesArray": false,
+      "inlineStyle": false,
+      "skipStyle": false
+    },
+    "angular-component": {
+      "ngOnInit": true,
+      "skipDisplayBlock": true,
+      "skipPathSubfolder": false
+    },
+    "angular-page": {
+      "skipNgOnInit": true,
+      "skipPathSubfolder": true
+    }
+  },
+  "workbench.colorCustomizations": {},
+  "dotnet.defaultSolution": "ByteWave-API.sln"
+}

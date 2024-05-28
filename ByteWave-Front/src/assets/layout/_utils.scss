@@ -1,0 +1,76 @@
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--surface-border);
+  padding: 2rem;
+  border-radius: $borderRadius;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.p-fieldset .p-fieldset-legend {
+  padding: 0.75rem;
+  margin-left: 0.75rem;
+  border: none;
+  background: var(--surface-card);
+}
+
+.p-button:enabled:active {
+  box-shadow: none;
+}
+
+.p-button:enabled:focus {
+  box-shadow: none;
+}
+
+// + and - buttons on input number - ex: Quantity input on New Product Page m,jkl
+.p-button.p-button-secondary.p-button-outlined {
+  border: 1px solid #ced4da;
+}
+
+.p-inputgroup-addon {
+  background: var(--surface-a);
+}
+
+.p-toast {
+  &.p-toast-top-right,
+  &.p-toast-top-left,
+  &.p-toast-top-center {
+    top: 100px;
+  }
+}
+
+.ripple-green {
+  .p-ink {
+    background: #22c55e34;
+  }
+}
+.ripple-orange {
+  .p-ink {
+    background: #f9741627;
+  }
+}
+.ripple-cyan {
+  .p-ink {
+    background: #06b5d428;
+  }
+}
+.ripple-yellow {
+  .p-ink {
+    background: #eab20827;
+  }
+}
+.ripple-red {
+  .p-ink {
+    background: #ea080827;
+  }
+}
+
+.ripple-indigo {
+  .p-ink {
+    background: #6365f13f;
+  }
+}
+
+

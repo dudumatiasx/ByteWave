@@ -1,0 +1,33 @@
+<p-toast></p-toast>
+<div class="bg-cover h-screen flex justify-content-center align-items-center"
+  style="background-image: url('assets/images/bg-login.svg');">
+  <div class="card p-6 col-11 sm:col-8 md:col-6 lg:col-5 xl:col-3">
+    <div class="flex justify-content-center">
+      <img src="/assets/bytewave.png" height="30" class="select-none hover:size mb-5" />
+    </div>
+    <div class="grid p-fluid flex">
+      <div class="flex-row p-2">
+        <div class="text-900 text-2xl font-large font-bold my-2">Log in</div>
+        <span class="text-600 font-medium">Please enter your details</span>
+      </div>
+      <div class="col-12 mt-3">
+        <input id="username" icon="pi pi-mail" [(ngModel)]="username" type="text" placeholder="Username" pInputText class="" styleClass="">
+      </div>
+      <div class="col-12">
+        <p-password id="password" [(ngModel)]="password" placeholder="Password" [feedback]="false" [toggleMask]="true"
+          class=""></p-password>
+      </div>
+      <div class="flex mb-6">
+        <div class="flex align-items-center">
+          <a class="font-medium hover:underline ml-2 text-right cursor-pointer" style="color: var(--primary-color)">
+            Forgot password?
+          </a>
+        </div>
+      </div>
+
+      <p-button class="w-full" label="Login" (click)="login()"></p-button>
+      <p-button class="w-full mt-2" label="Register" [outlined]="true" routerLink="/register"></p-button>
+
+    </div>
+  </div>
+</div>
