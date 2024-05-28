@@ -139,11 +139,11 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    var customerUserEmail = "customer@example.com";
+    var customerUserEmail = "bob@example.com";
     var customerUserPassword = "Customer@123";
     if (userManager.FindByEmailAsync(customerUserEmail).Result == null)
     {
-        var customerUser = new User { UserName = "Customer", Email = customerUserEmail };
+        var customerUser = new User { UserName = "bobjohnson", Email = customerUserEmail };
         var result = userManager.CreateAsync(customerUser, customerUserPassword).Result;
         if (result.Succeeded)
         {
