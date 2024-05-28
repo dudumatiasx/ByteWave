@@ -83,7 +83,6 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
 5. Navigate to the back-end directory:
 
    `cd ../ByteWave-Back`
-   
    `dotnet restore`
 
 6. Run the .NET application:
