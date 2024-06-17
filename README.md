@@ -167,6 +167,18 @@ ByteWave is a web application built with Angular 16 for the front-end and .NET 8
   - [PUT](/api/orders/{id}): Update an order.
   - [DELETE](/api/orders/{id}): Delete an order.
 
+  **Customers**
+  - [GET](/api/orders): Get all customers or filtered customers.
+  - [POST](/api/orders): Create a new customer.
+  - [PUT](/api/orders/{id}): Update an customer.
+  - [DELETE](/api/orders/{id}): Delete an customer.
+
+  **Users**
+  - [GET](/api/orders): Get all users or filtered users.
+  - [POST](/api/orders): Create a new user.
+  - [PUT](/api/orders/{id}): Update an user.
+  - [DELETE](/api/orders/{id}): Delete an user.
+
 ### Development
 
   **Auth Service**
